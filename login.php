@@ -8,8 +8,9 @@ mysql_connect($mysql_servername , $mysql_username , $mysql_password);
 mysql_select_db($mysql_database); 
 $name=$_POST['name'];
 $passowrd=$_POST['password'];
-
-
+session_start();
+$_SESSION['uname']=$name;
+#$echo $_SESSION['uname'];
 
 if ($name && $passowrd){
  $sql = "SELECT * FROM user WHERE uname = '$name' and pword='$passowrd'";
@@ -19,7 +20,7 @@ if ($name && $passowrd){
  #echo $rows;
   if($rows){
    #header("refresh:0;url=manage.php");//跳转页面，注意路径
-   header("Location: manage.php");
+   header("Location: content/index.php?user=$name");
    exit;
  }
  echo "<script language=javascript>alert('用户名密码错误');history.back();</script>";
